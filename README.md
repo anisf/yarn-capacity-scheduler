@@ -30,9 +30,9 @@ Role Variables
 `scheduler_maximum_am_resource_percent` | `0.1` | Maximum percent of resources in the cluster which can be used to run application masters |
 `scheduler_node_locality_delay` | `40` | Number of missed scheduling opportunities after which the CapacityScheduler attempts to schedule rack-local containers |
 `queue_mappings_override_enable` | `false` | Force queue mapping (str) |
-`scheduler_root_queue` | [] | Settings for root queue |
-`scheduler_queues` | [] | Settings for root children queues |
-`scheduler_queue_mapping`| [] | List of queue / User|Group mapping
+`scheduler_root_queue` | <ul><li>acl_submit_applications: [" "]</li><li>acl_administer_queue: ["mapr"]</li></ul> | Settings list for root queue |
+`scheduler_queues` | <ul><li>name: queue1</li><ul><li>capacity: 70</li><li>max_capacity: 70</li><li>user_limit_factor: 1</li><li>state: RUNNING</li><li>acl_submit_applications:</li><ul><li>mapr_user_1</li></ul><li>acl_administer_queue:</li><ul><li>mapr</li></ul></ul><li>name: queue2</li><ul><li>capacity: 30</li><li>max_capacity: 30</li><li>user_limit_factor: 1</li><li>state: RUNNING</li><li>acl_submit_applications:</li><ul><li>mapr_user_2</li></ul><li>acl_administer_queue:</li><ul><li>mapr</li></ul></ul></ul> | Settings list for root children queues |
+`scheduler_queue_mapping`| <ul><li>"u:mapr_user_1:queue1"</li><li>"u:mapr_user_2:queue2"</li></ul> | List of queue / User or Group mapping
 
 Example Playbook
 ----------------

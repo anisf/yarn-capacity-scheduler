@@ -26,8 +26,8 @@ scheduler_root_queue:
 
 scheduler_queues: 
   - name: queue1
-    capacity: 30
-    max_capacity: 30
+    capacity: 70
+    max_capacity: 70
     user_limit_factor: 1
     state: RUNNING
     acl_submit_applications:
@@ -36,8 +36,8 @@ scheduler_queues:
       - mapr
 
   - name: queue2
-    capacity: 20
-    max_capacity: 20
+    capacity: 30
+    max_capacity: 30
     user_limit_factor: 1
     state: RUNNING
     acl_submit_applications:
@@ -45,50 +45,6 @@ scheduler_queues:
     acl_administer_queue:
       - mapr
 
-  - name: queue3
-    capacity: 20
-    max_capacity: 20
-    user_limit_factor: 1
-    state: RUNNING
-    acl_submit_applications:
-      - mapr_user_3
-    acl_administer_queue:
-      - mapr
-
-  - name: queue4
-    capacity: 10
-    max_capacity: 10
-    user_limit_factor: 1
-    state: RUNNING
-    acl_submit_applications:
-      - mapr_user_4
-    acl_administer_queue:
-      - mapr
-  
-  - name: queue5
-    capacity: 5
-    max_capacity: 5
-    user_limit_factor: 1
-    state: RUNNING
-    acl_submit_applications:
-      - mapr_user_5
-    acl_administer_queue:
-      - mapr
-
-  - name: queue6
-    capacity: 5
-    max_capacity: 5
-    user_limit_factor: 1
-    state: RUNNING
-    acl_submit_applications:
-      - mapr_user_6
-    acl_administer_queue:
-      - mapr
-
 scheduler_queue_mapping: 
   - "u:mapr_user_1:queue1"
   - "u:mapr_user_2:queue2"
-  - "u:mapr_user_3:queue3"
-  - "u:mapr_user_4:queue4"
-  - "u:mapr_user_5:queue5"
-  - "u:mapr_user_6:queue6"
