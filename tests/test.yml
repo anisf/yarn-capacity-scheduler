@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  connection: local
+  vars:
+    capacity_scheduler_path: capacity-scheduler.xml
+    capacity_scheduler_owner: afathallah
+    capacity_scheduler_group: staff
+    yarn_site_path: yarn-site.xml
+    yarn_site_owner: afathallah
+    yarn_site_group: staff
+  roles:
+    - anisf.yarn-capacity-scheduler

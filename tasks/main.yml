@@ -1,0 +1,29 @@
+---
+
+- name: Generate capacity-scheduler.xml file
+  template:
+    src: capacity-scheduler.j2
+    dest: "{{ capacity_scheduler_path }}"
+    owner: "{{ capacity_scheduler_owner }}"
+    group: "{{ capacity_scheduler_group }}"
+    mode: "{{ capacity_scheduler_perms }}"
+    backup: yes
+  notify: Refresh Yarn Queues
+
+- name: Ensure fair_scheduler conf is absent in yarn-site.xml
+  blockinfile:
+    dest: "{{ yarn_site_path }}"
+    content: "{{ lookup('file', 'yarn-site-fair.xml') }}"
+    state: absent
+    backup: yes
+
+- name: Ensure capacity scheduler conf is present in yarn-site.xml
+  blockinfile:
+    dest: "{{ yarn_site_path }}"
+    content: "{{ lookup('file', 'yarn-site-capacity.xml') }}"
+    owner: "{{ yarn_site_owner }}"
+    group: "{{ yarn_site_group }}"
+    mode: "{{ yarn_site_perms }}"
+    insertbefore: "</configuration>"
+    state: present
+    backup: yes

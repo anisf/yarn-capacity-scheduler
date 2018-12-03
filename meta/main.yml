@@ -1,0 +1,21 @@
+galaxy_info:
+  author: Anis FATHALLAH
+  description: Manage YARN queues via capacity-scheduler
+
+  license: license (BSD, MIT)
+
+  min_ansible_version: 2.4
+
+  platforms:
+  - name: EL
+    versions:
+    - 7
+
+  galaxy_tags: 
+  - yarn
+  - hadoop
+  - mapr
+  - hortonworks
+  - capacity-scheduler
+
+dependencies: []

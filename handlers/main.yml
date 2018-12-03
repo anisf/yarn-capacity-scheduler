@@ -1,0 +1,5 @@
+---
+
+- name: Refresh Yarn Queues
+  command: "yarn rmadmin -refreshQueues"
+  when: yarn_refresh_queues

@@ -1,0 +1,143 @@
+{% set comma = joiner(",") %}
+
+<configuration>
+ 
+  <property>
+    <name>yarn.scheduler.capacity.maximum-applications</name>
+    <value>{{ scheduler_maximum_applications }}</value>
+    <description>
+      Maximum number of applications that can be pending and running.
+    </description>
+  </property>
+ 
+  <property>
+    <name>yarn.scheduler.capacity.maximum-am-resource-percent</name>
+    <value>{{ scheduler_maximum_am_resource_percent }}</value>
+    <description>
+      Maximum percent of resources in the cluster which can be used to run
+      application masters i.e. controls number of concurrent running
+      applications.
+    </description>
+  </property>
+ 
+  <property>
+    <name>yarn.scheduler.capacity.resource-calculator</name>
+    <value>org.apache.hadoop.yarn.util.resource.DiskBasedResourceCalculator</value>
+    <description>
+      The ResourceCalculator implementation to be used to compare
+      Resources in the scheduler.
+      The default i.e. DiskBasedResourceCalculator uses Memory, CPU and Disk while
+      DefaultResourceCalculator only uses Memory and
+      DominantResourceCalculator uses dominant-resource to compare
+      multi-dimensional resources such as Memory, CPU etc.
+    </description>
+  </property>
+ 
+  <property>
+    <name>yarn.scheduler.capacity.root.queues</name>
+    <value>{%for queue in scheduler_queues %}{{ comma() }}{{ queue.name }}{% endfor %}</value>
+    <description>
+      The queues at the this level (root is the root queue).
+    </description>
+  </property>
+
+  <property>
+    <name>yarn.scheduler.capacity.root.acl_submit_applications</name>
+    <value>{{ scheduler_root_queue.acl_submit_applications | join (',') }}</value>
+    <description>
+      The ACL of who can submit jobs to the root queue.
+    </description>
+  </property>
+ 
+  <property>
+    <name>yarn.scheduler.capacity.root.acl_administer_queue</name>
+    <value>{{ scheduler_root_queue.acl_administer_queue | join (',') }}</value>
+    <description>
+      The ACL of who can administer jobs on the root queue.
+    </description>
+  </property>
+
+{%for queue in scheduler_queues %}
+  <property>
+    <name>yarn.scheduler.capacity.root.{{ queue.name }}.capacity</name>
+    <value>{{ queue.capacity }}</value>
+    <description>{{ queue.name }} queue target capacity.</description>
+  </property>
+ 
+  <property>
+    <name>yarn.scheduler.capacity.root.{{ queue.name }}.maximum-capacity</name>
+    <value>{{ queue.max_capacity }}</value>
+    <description>
+      The maximum capacity of the {{ queue.name }} queue.
+    </description>
+  </property>
+
+  <property>
+    <name>yarn.scheduler.capacity.root.{{ queue.name }}.user-limit-factor</name>
+    <value>{{ queue.user_limit_factor }}</value>
+    <description>
+      Default queue user limit a percentage from 0.0 to 1.0.
+    </description>
+  </property>
+
+  <property>
+    <name>yarn.scheduler.capacity.root.{{ queue.name }}.state</name>
+    <value>{{ queue.state }}</value>
+    <description>
+      The state of the {{ queue.name }} queue. State can be one of RUNNING or STOPPED.
+    </description>
+  </property>
+
+  <property>
+    <name>yarn.scheduler.capacity.root.{{ queue.name }}.acl_submit_applications</name>
+    <value>{{ queue.acl_submit_applications | join (',') }}</value>
+    <description>
+      The ACL of who can submit jobs to the {{ queue.name }} queue.
+    </description>
+  </property>
+
+  <property>
+    <name>yarn.scheduler.capacity.root.{{ queue.name }}.acl_administer_queue</name>
+    <value>{{ queue.acl_administer_queue | join (',') }}</value>
+    <description>
+      The ACL of who can administer jobs on the {{ queue.name }} queue.
+    </description>
+  </property>
+
+{% endfor %}
+ 
+  <property>
+    <name>yarn.scheduler.capacity.node-locality-delay</name>
+    <value>{{ scheduler_node_locality_delay }}</value>
+    <description>
+      Number of missed scheduling opportunities after which the CapacityScheduler
+      attempts to schedule rack-local containers.
+      Typically this should be set to number of nodes in the cluster, By default is setting
+      approximately number of nodes in one rack which is 40.
+    </description>
+  </property>
+ 
+  <property>
+    <name>yarn.scheduler.capacity.queue-mappings</name>
+    <value>{{ scheduler_queue_mapping | join (',') }}</value>
+    <description>
+      A list of mappings that will be used to assign jobs to queues
+      The syntax for this list is [u|g]:[name]:[queue_name][,next mapping]*
+      Typically this list will be used to map users to queues,
+      for example, u:%user:%user maps all users to queues with the same name
+      as the user.
+    </description>
+  </property>
+ 
+  <property>
+    <name>yarn.scheduler.capacity.queue-mappings-override.enable</name>
+    <value>{{ queue_mappings_override_enable }}</value>
+    <description>
+      If a queue mapping is present, will it override the value specified
+      by the user? This can be used by administrators to place jobs in queues
+      that are different than the one specified by the user.
+      The default is false.
+    </description>
+  </property>
+ 
+</configuration>

@@ -1,0 +1,94 @@
+---
+
+# Refresh won't apply queue deletions. To apply queue deletions, restart YARN RM
+yarn_refresh_queues: false
+
+yarn_site_path: "/opt/mapr/hadoop/hadoop-2.7.0/etc/hadoop/hive-site.xml"
+yarn_site_owner: "mapr"
+yarn_site_group: "mapr"
+yarn_site_perms: 0755
+
+capacity_scheduler_path: "/opt/mapr/hadoop/hadoop-2.7.0/etc/hadoop/capacity-scheduler.xml"
+capacity_scheduler_owner: "mapr"
+capacity_scheduler_group: "mapr"
+capacity_scheduler_perms: 0755
+
+scheduler_maximum_applications: 10000
+scheduler_maximum_am_resource_percent: 0.1
+scheduler_node_locality_delay: 40
+queue_mappings_override_enable: "false"
+
+scheduler_root_queue:
+  acl_submit_applications:
+    - " "
+  acl_administer_queue:
+      - mapr
+
+scheduler_queues: 
+  - name: queue1
+    capacity: 30
+    max_capacity: 30
+    user_limit_factor: 1
+    state: RUNNING
+    acl_submit_applications:
+      - mapr_user_1
+    acl_administer_queue:
+      - mapr
+
+  - name: queue2
+    capacity: 20
+    max_capacity: 20
+    user_limit_factor: 1
+    state: RUNNING
+    acl_submit_applications:
+      - mapr_user_2
+    acl_administer_queue:
+      - mapr
+
+  - name: queue3
+    capacity: 20
+    max_capacity: 20
+    user_limit_factor: 1
+    state: RUNNING
+    acl_submit_applications:
+      - mapr_user_3
+    acl_administer_queue:
+      - mapr
+
+  - name: queue4
+    capacity: 10
+    max_capacity: 10
+    user_limit_factor: 1
+    state: RUNNING
+    acl_submit_applications:
+      - mapr_user_4
+    acl_administer_queue:
+      - mapr
+  
+  - name: queue5
+    capacity: 5
+    max_capacity: 5
+    user_limit_factor: 1
+    state: RUNNING
+    acl_submit_applications:
+      - mapr_user_5
+    acl_administer_queue:
+      - mapr
+
+  - name: queue6
+    capacity: 5
+    max_capacity: 5
+    user_limit_factor: 1
+    state: RUNNING
+    acl_submit_applications:
+      - mapr_user_6
+    acl_administer_queue:
+      - mapr
+
+scheduler_queue_mapping: 
+  - "u:mapr_user_1:queue1"
+  - "u:mapr_user_2:queue2"
+  - "u:mapr_user_3:queue3"
+  - "u:mapr_user_4:queue4"
+  - "u:mapr_user_5:queue5"
+  - "u:mapr_user_6:queue6"
