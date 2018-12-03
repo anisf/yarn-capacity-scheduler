@@ -32,6 +32,7 @@ Role Variables
 `queue_mappings_override_enable` | `false` | Force queue mapping (str) |
 `scheduler_root_queue` | [] | Settings for root queue |
 `scheduler_queues` | [] | Settings for root children queues |
+`scheduler_queue_mapping`| [] | List of queue / User|Group mapping
 
 Example Playbook
 ----------------
