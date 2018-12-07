@@ -3,7 +3,7 @@
 # Refresh won't apply queue deletions. To apply queue deletions, restart YARN RM
 yarn_refresh_queues: false
 
-yarn_site_path: "/opt/mapr/hadoop/hadoop-2.7.0/etc/hadoop/hive-site.xml"
+yarn_site_path: "/opt/mapr/hadoop/hadoop-2.7.0/etc/hadoop/yarn-site.xml"
 yarn_site_owner: "mapr"
 yarn_site_group: "mapr"
 yarn_site_perms: 0755
